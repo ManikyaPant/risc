@@ -20,6 +20,10 @@
 - `linker.ld` - Linker script
 - `Makefile` - Build automation
 - `build_commands.txt` - Toolchain reference
+- `design_diagram.pdf` - Processor architecture diagram
+- `report.pdf` - Detailed design report
+
+
 
 ## Quick Start
 ```bash
