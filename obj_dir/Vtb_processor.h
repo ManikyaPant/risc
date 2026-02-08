@@ -30,16 +30,21 @@ VL_MODULE(Vtb_processor) {
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     CData/*0:0*/ tb_processor__DOT__halt;
+    CData/*0:0*/ tb_processor__DOT__dut__DOT__is_jal;
     IData/*31:0*/ tb_processor__DOT__halt_counter;
     IData/*31:0*/ tb_processor__DOT__unnamedblk1__DOT__i;
     IData/*31:0*/ tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i;
     WData/*95:0*/ tb_processor__DOT__dut__DOT__if_id[3];
-    WData/*280:0*/ tb_processor__DOT__dut__DOT__id_ex[9];
+    WData/*290:0*/ tb_processor__DOT__dut__DOT__id_ex[10];
     WData/*138:0*/ tb_processor__DOT__dut__DOT__ex_mem[5];
     WData/*69:0*/ tb_processor__DOT__dut__DOT__mem_wb[3];
+    QData/*63:0*/ tb_processor__DOT__dut__DOT__jal_imm;
     QData/*63:0*/ tb_processor__DOT__dut__DOT__pc_reg;
     QData/*63:0*/ tb_processor__DOT__dut__DOT__imm_gen;
+    QData/*63:0*/ tb_processor__DOT__dut__DOT__alu_in1;
+    QData/*63:0*/ tb_processor__DOT__dut__DOT__alu_in2;
     QData/*63:0*/ tb_processor__DOT__dut__DOT__alu_out;
+    QData/*63:0*/ tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val;
     QData/*63:0*/ tb_processor__DOT__dut__DOT__reg_file[32];
     CData/*7:0*/ tb_processor__DOT__imem__DOT__mem[16384];
     QData/*63:0*/ tb_processor__DOT__dmem__DOT__mem[512];

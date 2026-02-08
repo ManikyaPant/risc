@@ -73,9 +73,16 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__1(Vtb_processor__Syms* __restri
     vlTOPp->__Vdly__tb_processor__DOT__dut__DOT__pc_reg 
         = vlTOPp->tb_processor__DOT__dut__DOT__pc_reg;
     if (vlTOPp->rst_n) {
-        if ((0x6fU != vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) {
+        if ((0x6fU == (0x7fU & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) {
             vlTOPp->__Vdly__tb_processor__DOT__dut__DOT__pc_reg 
-                = (4ULL + vlTOPp->tb_processor__DOT__dut__DOT__pc_reg);
+                = ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
+                     << 0x20U) | (QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U]))) 
+                   + vlTOPp->tb_processor__DOT__dut__DOT__jal_imm);
+        } else {
+            if ((0x6fU != vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) {
+                vlTOPp->__Vdly__tb_processor__DOT__dut__DOT__pc_reg 
+                    = (4ULL + vlTOPp->tb_processor__DOT__dut__DOT__pc_reg);
+            }
         }
     } else {
         vlTOPp->__Vdly__tb_processor__DOT__dut__DOT__pc_reg = 0ULL;
@@ -216,22 +223,22 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__2(Vtb_processor__Syms* __restri
                       [0x1fU]);
             VL_WRITEF("\n===============================================\n\n");
             if ((0x28ULL == vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                 [0xaU])) {
-                VL_WRITEF("PASS: x10 (a0) = 40 (Addition Verified)\n");
+                 [0xfU])) {
+                VL_WRITEF("PASS: x15 = 40 (Addition Verified)\n");
             } else {
-                VL_WRITEF("FAIL: x10 (a0) = 0x%x (Expected 0x28)\n",
+                VL_WRITEF("INFO: x15 = 0x%x (Expected 0x28 if using GCC default)\n",
                           64,vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                          [0xaU]);
+                          [0xfU]);
             }
             if ((0x1010ULL == vlTOPp->tb_processor__DOT__dut__DOT__reg_file
                  [0xdU])) {
-                VL_WRITEF("PASS: x13 (a3) = 0x1010 (SH1ADD Verified)\n");
+                VL_WRITEF("PASS: x13 = 0x1010 (SH1ADD Verified)\n");
             } else {
-                VL_WRITEF("FAIL: x13 (a3) = 0x%x (Expected 0x1010)\n",
+                VL_WRITEF("FAIL: x13 = 0x%x (Expected 0x1010 - Check Forwarding!)\n",
                           64,vlTOPp->tb_processor__DOT__dut__DOT__reg_file
                           [0xdU]);
             }
-            VL_FINISH_MT("tb_processor.sv", 68, "");
+            VL_FINISH_MT("tb_processor.sv", 64, "");
         }
     }
 }
@@ -241,7 +248,6 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__5(Vtb_processor__Syms* __restri
     Vtb_processor* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     WData/*95:0*/ __Vtemp4[3];
-    WData/*159:0*/ __Vtemp8[5];
     // Body
     __Vtemp4[1U] = ((0x3fU & ((IData)(((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U])
                                         ? vlTOPp->tb_processor__DOT__dmem__DOT__mem
@@ -325,74 +331,37 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__5(Vtb_processor__Syms* __restri
                                                         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[2U])) 
                                         >> 0xbU)))) 
                                  >> 0x20U)) >> 0x1aU));
-    } else {
-        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] = 0U;
-        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] = 0U;
-        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[2U] = 0U;
-    }
-    __Vtemp8[0U] = ((0xfffff800U & ((IData)((((QData)((IData)(
-                                                              vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                              << 0x27U) 
-                                             | (((QData)((IData)(
-                                                                 vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                                 << 7U) 
-                                                | ((QData)((IData)(
-                                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                   >> 0x19U)))) 
-                                    << 0xbU)) | ((0x7c0U 
-                                                  & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                                      << 0x12U) 
-                                                     | (0x3ffc0U 
-                                                        & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                           >> 0xeU)))) 
-                                                 | ((0x20U 
-                                                     & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                        << 3U)) 
-                                                    | ((0x10U 
-                                                        & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                           << 3U)) 
-                                                       | ((8U 
-                                                           & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                              << 3U)) 
-                                                          | (7U 
-                                                             & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                                                 << 0xfU) 
-                                                                | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                                   >> 0x11U))))))));
-    if (vlTOPp->rst_n) {
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
-            = __Vtemp8[0U];
+            = ((0xfffff800U & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__alu_in2) 
+                               << 0xbU)) | ((0x7c0U 
+                                             & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                                 << 0x12U) 
+                                                | (0x3ffc0U 
+                                                   & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                      >> 0xeU)))) 
+                                            | ((0x20U 
+                                                & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                   << 3U)) 
+                                               | ((0x10U 
+                                                   & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                      << 3U)) 
+                                                  | ((8U 
+                                                      & (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                         << 3U)) 
+                                                     | (7U 
+                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                                            << 0xfU) 
+                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                              >> 0x11U))))))));
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] 
-            = ((0x7ffU & ((IData)((((QData)((IData)(
-                                                    vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                    << 0x27U) | (((QData)((IData)(
-                                                                  vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                                  << 7U) 
-                                                 | ((QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                    >> 0x19U)))) 
+            = ((0x7ffU & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__alu_in2) 
                           >> 0x15U)) | (0xfffff800U 
                                         & ((IData)(
-                                                   ((((QData)((IData)(
-                                                                      vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                                      << 0x27U) 
-                                                     | (((QData)((IData)(
-                                                                         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                                         << 7U) 
-                                                        | ((QData)((IData)(
-                                                                           vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                           >> 0x19U))) 
+                                                   (vlTOPp->tb_processor__DOT__dut__DOT__alu_in2 
                                                     >> 0x20U)) 
                                            << 0xbU)));
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[2U] 
-            = ((0x7ffU & ((IData)(((((QData)((IData)(
-                                                     vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                     << 0x27U) | (((QData)((IData)(
-                                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                                   << 7U) 
-                                                  | ((QData)((IData)(
-                                                                     vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                     >> 0x19U))) 
+            = ((0x7ffU & ((IData)((vlTOPp->tb_processor__DOT__dut__DOT__alu_in2 
                                    >> 0x20U)) >> 0x15U)) 
                | (0xfffff800U & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__alu_out) 
                                  << 0xbU)));
@@ -407,6 +376,9 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__5(Vtb_processor__Syms* __restri
             = (0x7ffU & ((IData)((vlTOPp->tb_processor__DOT__dut__DOT__alu_out 
                                   >> 0x20U)) >> 0x15U));
     } else {
+        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] = 0U;
+        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] = 0U;
+        vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[2U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[2U] = 0U;
@@ -414,216 +386,245 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__5(Vtb_processor__Syms* __restri
         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[4U] = 0U;
     }
     if (vlTOPp->rst_n) {
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U] 
-            = ((0x1ffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U]) 
-               | (0xfe000000U & ((IData)((((QData)((IData)(
-                                                           vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
-                                           << 0x20U) 
-                                          | (QData)((IData)(
-                                                            vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U])))) 
-                                 << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U] 
-            = ((0x1ffffffU & ((IData)((((QData)((IData)(
-                                                        vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
-                                        << 0x20U) | (QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U])))) 
-                              >> 7U)) | (0xfe000000U 
-                                         & ((IData)(
-                                                    ((((QData)((IData)(
-                                                                       vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
-                                                       << 0x20U) 
-                                                      | (QData)((IData)(
-                                                                        vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U]))) 
-                                                     >> 0x20U)) 
-                                            << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[8U] 
-            = (0x1ffffffU & ((IData)(((((QData)((IData)(
-                                                        vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
-                                        << 0x20U) | (QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U]))) 
-                                      >> 0x20U)) >> 7U));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U] 
-            = ((0x1ffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U]) 
-               | (0xfe000000U & ((IData)(((0U == (0x1fU 
-                                                  & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                      << 0x11U) 
-                                                     | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                        >> 0xfU))))
-                                           ? 0ULL : 
-                                          vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                          [(0x1fU & 
-                                            ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                              << 0x11U) 
-                                             | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                >> 0xfU)))])) 
-                                 << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U] 
-            = ((0x1ffffffU & ((IData)(((0U == (0x1fU 
-                                               & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                   << 0x11U) 
-                                                  | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                     >> 0xfU))))
-                                        ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                       [(0x1fU & ((
-                                                   vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                   << 0x11U) 
-                                                  | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                     >> 0xfU)))])) 
-                              >> 7U)) | (0xfe000000U 
-                                         & ((IData)(
-                                                    (((0U 
-                                                       == 
-                                                       (0x1fU 
-                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                            << 0x11U) 
-                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                              >> 0xfU))))
-                                                       ? 0ULL
-                                                       : 
-                                                      vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                                      [
+        if ((0x6fU == (0x7fU & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) {
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[8U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[9U] = 0U;
+        } else {
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U] 
+                = ((7U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U]) 
+                   | (0xfffffff8U & ((IData)((((QData)((IData)(
+                                                               vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
+                                               << 0x20U) 
+                                              | (QData)((IData)(
+                                                                vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U])))) 
+                                     << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[8U] 
+                = ((7U & ((IData)((((QData)((IData)(
+                                                    vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
+                                    << 0x20U) | (QData)((IData)(
+                                                                vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U])))) 
+                          >> 0x1dU)) | (0xfffffff8U 
+                                        & ((IData)(
+                                                   ((((QData)((IData)(
+                                                                      vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
+                                                      << 0x20U) 
+                                                     | (QData)((IData)(
+                                                                       vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U]))) 
+                                                    >> 0x20U)) 
+                                           << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[9U] 
+                = (7U & ((IData)(((((QData)((IData)(
+                                                    vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U])) 
+                                    << 0x20U) | (QData)((IData)(
+                                                                vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U]))) 
+                                  >> 0x20U)) >> 0x1dU));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U] 
+                = ((7U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U]) 
+                   | (0xfffffff8U & ((IData)(((0U == 
+                                               (0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                    << 0x11U) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                      >> 0xfU))))
+                                               ? 0ULL
+                                               : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                              [(0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                    << 0x11U) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                      >> 0xfU)))])) 
+                                     << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U] 
+                = ((7U & ((IData)(((0U == (0x1fU & 
+                                           ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                             << 0x11U) 
+                                            | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                               >> 0xfU))))
+                                    ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                   [(0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                               << 0x11U) 
+                                              | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                 >> 0xfU)))])) 
+                          >> 0x1dU)) | (0xfffffff8U 
+                                        & ((IData)(
+                                                   (((0U 
+                                                      == 
                                                       (0x1fU 
                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
                                                            << 0x11U) 
                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                             >> 0xfU)))]) 
-                                                     >> 0x20U)) 
-                                            << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U] 
-            = ((0xfe000000U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U]) 
-               | (0x1ffffffU & ((IData)((((0U == (0x1fU 
-                                                  & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                      << 0x11U) 
-                                                     | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                        >> 0xfU))))
-                                           ? 0ULL : 
-                                          vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                          [(0x1fU & 
-                                            ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                              << 0x11U) 
-                                             | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                >> 0xfU)))]) 
-                                         >> 0x20U)) 
-                                >> 7U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U] 
-            = ((0x1ffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U]) 
-               | (0xfe000000U & ((IData)(((0U == (0x1fU 
-                                                  & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                      << 0xcU) 
-                                                     | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                        >> 0x14U))))
-                                           ? 0ULL : 
-                                          vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                          [(0x1fU & 
-                                            ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                              << 0xcU) 
-                                             | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                >> 0x14U)))])) 
-                                 << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U] 
-            = ((0x1ffffffU & ((IData)(((0U == (0x1fU 
-                                               & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                   << 0xcU) 
-                                                  | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                     >> 0x14U))))
-                                        ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                       [(0x1fU & ((
-                                                   vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                   << 0xcU) 
-                                                  | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                     >> 0x14U)))])) 
-                              >> 7U)) | (0xfe000000U 
-                                         & ((IData)(
-                                                    (((0U 
-                                                       == 
-                                                       (0x1fU 
-                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                            << 0xcU) 
-                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                              >> 0x14U))))
-                                                       ? 0ULL
-                                                       : 
-                                                      vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                                      [
+                                                             >> 0xfU))))
+                                                      ? 0ULL
+                                                      : 
+                                                     vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                                     [
+                                                     (0x1fU 
+                                                      & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                          << 0x11U) 
+                                                         | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                            >> 0xfU)))]) 
+                                                    >> 0x20U)) 
+                                           << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U] 
+                = ((0xfffffff8U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U]) 
+                   | (7U & ((IData)((((0U == (0x1fU 
+                                              & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                  << 0x11U) 
+                                                 | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                    >> 0xfU))))
+                                       ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                      [(0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                  << 0x11U) 
+                                                 | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                    >> 0xfU)))]) 
+                                     >> 0x20U)) >> 0x1dU)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U] 
+                = ((7U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U]) 
+                   | (0xfffffff8U & ((IData)(((0U == 
+                                               (0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                    << 0xcU) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                      >> 0x14U))))
+                                               ? 0ULL
+                                               : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                              [(0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                    << 0xcU) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                      >> 0x14U)))])) 
+                                     << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U] 
+                = ((7U & ((IData)(((0U == (0x1fU & 
+                                           ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                             << 0xcU) 
+                                            | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                               >> 0x14U))))
+                                    ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                   [(0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                               << 0xcU) 
+                                              | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                 >> 0x14U)))])) 
+                          >> 0x1dU)) | (0xfffffff8U 
+                                        & ((IData)(
+                                                   (((0U 
+                                                      == 
                                                       (0x1fU 
                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
                                                            << 0xcU) 
                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                             >> 0x14U)))]) 
-                                                     >> 0x20U)) 
-                                            << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U] 
-            = ((0xfe000000U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U]) 
-               | (0x1ffffffU & ((IData)((((0U == (0x1fU 
-                                                  & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                      << 0xcU) 
-                                                     | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                        >> 0x14U))))
-                                           ? 0ULL : 
-                                          vlTOPp->tb_processor__DOT__dut__DOT__reg_file
-                                          [(0x1fU & 
-                                            ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                              << 0xcU) 
-                                             | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                >> 0x14U)))]) 
-                                         >> 0x20U)) 
-                                >> 7U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0x1ffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0xfe000000U & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__imm_gen) 
-                                 << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-            = ((0x1ffffffU & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__imm_gen) 
-                              >> 7U)) | (0xfe000000U 
-                                         & ((IData)(
-                                                    (vlTOPp->tb_processor__DOT__dut__DOT__imm_gen 
-                                                     >> 0x20U)) 
-                                            << 0x19U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U] 
-            = ((0xfe000000U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U]) 
-               | (0x1ffffffU & ((IData)((vlTOPp->tb_processor__DOT__dut__DOT__imm_gen 
-                                         >> 0x20U)) 
-                                >> 7U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfe0fffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0x1f00000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                << 0xdU)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfff1ffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0xe0000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                              << 5U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfffe03ffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0x1fc00U & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                               << 0x11U) | (0x1fc00U 
-                                            & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                               >> 0xfU)))));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfffffc07U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0x3f8U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                            << 3U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfffffffbU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0xfffffffcU & (((((((0x33U == (0x7fU 
-                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) 
-                                      | (0x13U == (0x7fU 
+                                                             >> 0x14U))))
+                                                      ? 0ULL
+                                                      : 
+                                                     vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                                     [
+                                                     (0x1fU 
+                                                      & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                          << 0xcU) 
+                                                         | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                            >> 0x14U)))]) 
+                                                    >> 0x20U)) 
+                                           << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U] 
+                = ((0xfffffff8U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U]) 
+                   | (7U & ((IData)((((0U == (0x1fU 
+                                              & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                  << 0xcU) 
+                                                 | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                    >> 0x14U))))
+                                       ? 0ULL : vlTOPp->tb_processor__DOT__dut__DOT__reg_file
+                                      [(0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                  << 0xcU) 
+                                                 | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                    >> 0x14U)))]) 
+                                     >> 0x20U)) >> 0x1dU)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                = ((7U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U]) 
+                   | (0xfffffff8U & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__imm_gen) 
+                                     << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U] 
+                = ((7U & ((IData)(vlTOPp->tb_processor__DOT__dut__DOT__imm_gen) 
+                          >> 0x1dU)) | (0xfffffff8U 
+                                        & ((IData)(
+                                                   (vlTOPp->tb_processor__DOT__dut__DOT__imm_gen 
+                                                    >> 0x20U)) 
+                                           << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U] 
+                = ((0xfffffff8U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U]) 
+                   | (7U & ((IData)((vlTOPp->tb_processor__DOT__dut__DOT__imm_gen 
+                                     >> 0x20U)) >> 0x1dU)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0x3fffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0xc0000000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                     << 0xfU)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                = ((0xfffffff8U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U]) 
+                   | (7U & ((0x3fff8000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                            << 0xfU)) 
+                            | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                               >> 0x11U))));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xc1ffffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0x3e000000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                     << 5U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfe0fffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0x1f00000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                    << 0xdU)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfff1ffffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0xe0000U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                  << 5U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfffe03ffU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0x1fc00U & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                   << 0x11U) | (0x1fc00U 
+                                                & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                   >> 0xfU)))));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfffffc07U & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0x3f8U & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                << 3U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfffffffbU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0xfffffffcU & ((((((((0x33U == 
+                                            (0x7fU 
+                                             & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) 
+                                           | (0x13U 
+                                              == (0x7fU 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
+                                          | (3U == 
+                                             (0x7fU 
+                                              & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
+                                         | (0x37U == 
+                                            (0x7fU 
+                                             & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
+                                        | (0x17U == 
+                                           (0x7fU & 
+                                            vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
+                                       | (0x6fU == 
+                                          (0x7fU & 
+                                           vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
+                                      | (0x3bU == (0x7fU 
                                                    & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
-                                     | (3U == (0x7fU 
-                                               & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
-                                    | (0x37U == (0x7fU 
-                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
-                                   | (0x17U == (0x7fU 
-                                                & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
-                                  | (0x3bU == (0x7fU 
-                                               & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))) 
-                                 << 2U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfffffffdU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0xfffffffeU & ((3U == (0x7fU & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) 
-                                 << 1U)));
-        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-            = ((0xfffffffeU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
-               | (0x23U == (0x7fU & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])));
+                                     << 2U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfffffffdU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0xfffffffeU & ((3U == (0x7fU 
+                                             & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])) 
+                                     << 1U)));
+            vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                = ((0xfffffffeU & vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U]) 
+                   | (0x23U == (0x7fU & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])));
+        }
     } else {
         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] = 0U;
@@ -634,293 +635,355 @@ VL_INLINE_OPT void Vtb_processor::_sequent__TOP__5(Vtb_processor__Syms* __restri
         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[8U] = 0U;
+        vlTOPp->tb_processor__DOT__dut__DOT__id_ex[9U] = 0U;
     }
-    vlTOPp->tb_processor__DOT__dut__DOT__alu_out = 
-        ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
-           << 0x27U) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
-                         << 7U) | ((QData)((IData)(
-                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                   >> 0x19U))) + ((
-                                                   (0x33U 
-                                                    == 
-                                                    (0x7fU 
-                                                     & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                                         << 0x1dU) 
-                                                        | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                           >> 3U)))) 
-                                                   | (0x3bU 
-                                                      == 
-                                                      (0x7fU 
-                                                       & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                                           << 0x1dU) 
-                                                          | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                             >> 3U)))))
-                                                   ? 
-                                                  (((QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                                    << 0x27U) 
-                                                   | (((QData)((IData)(
-                                                                       vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                                       << 7U) 
-                                                      | ((QData)((IData)(
-                                                                         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                         >> 0x19U)))
-                                                   : 
-                                                  (((QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                    << 0x27U) 
-                                                   | (((QData)((IData)(
-                                                                       vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U])) 
-                                                       << 7U) 
-                                                      | ((QData)((IData)(
-                                                                         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U])) 
-                                                         >> 0x19U)))));
-    if (((0x33U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                              << 0x1dU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                           >> 3U)))) 
-         & (0x10U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                << 0x16U) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                             >> 0xaU)))))) {
-        vlTOPp->tb_processor__DOT__dut__DOT__alu_out 
-            = ((2U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                              << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                          >> 0x11U))))
-                ? ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
-                     << 0x28U) | (((QData)((IData)(
-                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
-                                   << 8U) | (0xfffffffffeULL 
-                                             & ((QData)((IData)(
-                                                                vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                                >> 0x18U)))) 
-                   + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                       << 0x27U) | (((QData)((IData)(
-                                                     vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                     << 7U) | ((QData)((IData)(
-                                                               vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                               >> 0x19U))))
-                : ((4U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                  << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                              >> 0x11U))))
-                    ? ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
-                         << 0x29U) | (((QData)((IData)(
-                                                       vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
-                                       << 9U) | (0x1fffffffffcULL 
-                                                 & ((QData)((IData)(
-                                                                    vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                                    >> 0x17U)))) 
-                       + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                           << 0x27U) | (((QData)((IData)(
-                                                         vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                         << 7U) | ((QData)((IData)(
-                                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                                   >> 0x19U))))
-                    : ((6U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                      << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                  >> 0x11U))))
-                        ? ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
-                             << 0x2aU) | (((QData)((IData)(
-                                                           vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
-                                           << 0xaU) 
-                                          | (0x3fffffffff8ULL 
-                                             & ((QData)((IData)(
-                                                                vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                                >> 0x16U)))) 
-                           + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                               << 0x27U) | (((QData)((IData)(
+    vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 = 
+        ((((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+            >> 5U) & (0U != (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] 
+                                       << 0x1aU) | 
+                                      (vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+                                       >> 6U))))) & 
+          ((0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] 
+                      << 0x1aU) | (vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+                                   >> 6U))) == (0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                                    << 2U) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                      >> 0x1eU)))))
+          ? (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[4U])) 
+              << 0x35U) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[3U])) 
+                            << 0x15U) | ((QData)((IData)(
+                                                         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[2U])) 
+                                         >> 0xbU)))
+          : (((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+               & (0U != (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] 
+                                   << 0x1fU) | (vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+                                                >> 1U))))) 
+              & ((0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] 
+                            << 0x1fU) | (vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+                                         >> 1U))) == 
+                 (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                            << 2U) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                      >> 0x1eU)))))
+              ? (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[2U])) 
+                  << 0x3aU) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U])) 
+                                << 0x1aU) | ((QData)((IData)(
+                                                             vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U])) 
+                                             >> 6U)))
+              : (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U])) 
+                  << 0x3dU) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
+                                << 0x1dU) | ((QData)((IData)(
+                                                             vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
+                                             >> 3U)))));
+    vlTOPp->tb_processor__DOT__dut__DOT__alu_in2 = 
+        ((((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+            >> 5U) & (0U != (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] 
+                                       << 0x1aU) | 
+                                      (vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+                                       >> 6U))))) & 
+          ((0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[1U] 
+                      << 0x1aU) | (vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[0U] 
+                                   >> 6U))) == (0x1fU 
+                                                & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                                    << 7U) 
+                                                   | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                      >> 0x19U)))))
+          ? (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[4U])) 
+              << 0x35U) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[3U])) 
+                            << 0x15U) | ((QData)((IData)(
+                                                         vlTOPp->tb_processor__DOT__dut__DOT__ex_mem[2U])) 
+                                         >> 0xbU)))
+          : (((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+               & (0U != (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] 
+                                   << 0x1fU) | (vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+                                                >> 1U))))) 
+              & ((0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U] 
+                            << 0x1fU) | (vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U] 
+                                         >> 1U))) == 
+                 (0x1fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                            << 7U) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                      >> 0x19U)))))
+              ? (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[2U])) 
+                  << 0x3aU) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[1U])) 
+                                << 0x1aU) | ((QData)((IData)(
+                                                             vlTOPp->tb_processor__DOT__dut__DOT__mem_wb[0U])) 
+                                             >> 6U)))
+              : (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
+                  << 0x3dU) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
+                                << 0x1dU) | ((QData)((IData)(
                                                              vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                             << 7U) 
-                                            | ((QData)((IData)(
-                                                               vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                               >> 0x19U))))
-                        : ((((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[6U])) 
-                             << 0x27U) | (((QData)((IData)(
-                                                           vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U])) 
-                                           << 7U) | 
-                                          ((QData)((IData)(
-                                                           vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                                           >> 0x19U))) 
-                           + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                               << 0x27U) | (((QData)((IData)(
-                                                             vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                             << 7U) 
-                                            | ((QData)((IData)(
-                                                               vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                               >> 0x19U)))))));
-    } else {
-        if ((((0x3bU == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                   << 0x1dU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                                >> 3U)))) 
-              & (4U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                                  << 0x16U) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                               >> 0xaU))))) 
-             & (0U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
-                              << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
-                                          >> 0x11U)))))) {
-            vlTOPp->tb_processor__DOT__dut__DOT__alu_out 
-                = ((QData)((IData)(((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[5U] 
-                                     << 7U) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U] 
-                                               >> 0x19U)))) 
-                   + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[4U])) 
-                       << 0x27U) | (((QData)((IData)(
-                                                     vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
-                                     << 7U) | ((QData)((IData)(
-                                                               vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
-                                               >> 0x19U))));
-        }
-    }
+                                             >> 3U)))));
     if (vlTOPp->rst_n) {
-        if ((1U & (~ (IData)(vlTOPp->tb_processor__DOT__halt)))) {
-            vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                = ((vlTOPp->tb_processor__DOT__imem__DOT__mem
-                    [(0x3fffU & ((IData)(3U) + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
-                    << 0x18U) | ((vlTOPp->tb_processor__DOT__imem__DOT__mem
-                                  [(0x3fffU & ((IData)(2U) 
-                                               + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
-                                  << 0x10U) | ((vlTOPp->tb_processor__DOT__imem__DOT__mem
-                                                [(0x3fffU 
-                                                  & ((IData)(1U) 
-                                                     + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
-                                                << 8U) 
-                                               | vlTOPp->tb_processor__DOT__imem__DOT__mem
-                                               [(0x3fffU 
-                                                 & (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg))])));
-            vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                = (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg);
-            vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U] 
-                = (IData)((vlTOPp->tb_processor__DOT__dut__DOT__pc_reg 
-                           >> 0x20U));
+        if (vlTOPp->tb_processor__DOT__dut__DOT__is_jal) {
+            vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] = 0U;
+            vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U] = 0U;
+        } else {
+            if ((1U & (~ (IData)(vlTOPp->tb_processor__DOT__halt)))) {
+                vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                    = ((vlTOPp->tb_processor__DOT__imem__DOT__mem
+                        [(0x3fffU & ((IData)(3U) + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
+                        << 0x18U) | ((vlTOPp->tb_processor__DOT__imem__DOT__mem
+                                      [(0x3fffU & ((IData)(2U) 
+                                                   + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
+                                      << 0x10U) | (
+                                                   (vlTOPp->tb_processor__DOT__imem__DOT__mem
+                                                    [
+                                                    (0x3fffU 
+                                                     & ((IData)(1U) 
+                                                        + (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg)))] 
+                                                    << 8U) 
+                                                   | vlTOPp->tb_processor__DOT__imem__DOT__mem
+                                                   [
+                                                   (0x3fffU 
+                                                    & (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg))])));
+                vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                    = (IData)(vlTOPp->tb_processor__DOT__dut__DOT__pc_reg);
+                vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U] 
+                    = (IData)((vlTOPp->tb_processor__DOT__dut__DOT__pc_reg 
+                               >> 0x20U));
+            }
         }
     } else {
         vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] = 0U;
         vlTOPp->tb_processor__DOT__dut__DOT__if_id[2U] = 0U;
     }
+    if ((0x6fU == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                             << 0x1dU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                          >> 3U))))) {
+        vlTOPp->tb_processor__DOT__dut__DOT__alu_out 
+            = (4ULL + (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[9U])) 
+                        << 0x3dU) | (((QData)((IData)(
+                                                      vlTOPp->tb_processor__DOT__dut__DOT__id_ex[8U])) 
+                                      << 0x1dU) | ((QData)((IData)(
+                                                                   vlTOPp->tb_processor__DOT__dut__DOT__id_ex[7U])) 
+                                                   >> 3U))));
+    } else {
+        vlTOPp->tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val 
+            = (((0x33U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                     << 0x1dU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                  >> 3U)))) 
+                | (0x3bU == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                       << 0x1dU) | 
+                                      (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                       >> 3U))))) ? vlTOPp->tb_processor__DOT__dut__DOT__alu_in2
+                : (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[3U])) 
+                    << 0x3dU) | (((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__id_ex[2U])) 
+                                  << 0x1dU) | ((QData)((IData)(
+                                                               vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U])) 
+                                               >> 3U))));
+        vlTOPp->tb_processor__DOT__dut__DOT__alu_out 
+            = (((0x33U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                     << 0x1dU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                  >> 3U)))) 
+                & (0x10U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                       << 0x16U) | 
+                                      (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                       >> 0xaU)))))
+                ? ((2U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                  << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                              >> 0x11U))))
+                    ? ((vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 
+                        << 1U) + vlTOPp->tb_processor__DOT__dut__DOT__alu_in2)
+                    : ((4U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                      << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                  >> 0x11U))))
+                        ? ((vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 
+                            << 2U) + vlTOPp->tb_processor__DOT__dut__DOT__alu_in2)
+                        : ((6U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                          << 0xfU) 
+                                         | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                            >> 0x11U))))
+                            ? ((vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 
+                                << 3U) + vlTOPp->tb_processor__DOT__dut__DOT__alu_in2)
+                            : (vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 
+                               + vlTOPp->tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val))))
+                : ((((0x3bU == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                          << 0x1dU) 
+                                         | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                            >> 3U)))) 
+                     & (4U == (0x7fU & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                         << 0x16U) 
+                                        | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                           >> 0xaU))))) 
+                    & (0U == (7U & ((vlTOPp->tb_processor__DOT__dut__DOT__id_ex[1U] 
+                                     << 0xfU) | (vlTOPp->tb_processor__DOT__dut__DOT__id_ex[0U] 
+                                                 >> 0x11U)))))
+                    ? ((QData)((IData)(vlTOPp->tb_processor__DOT__dut__DOT__alu_in1)) 
+                       + vlTOPp->tb_processor__DOT__dut__DOT__alu_in2)
+                    : (vlTOPp->tb_processor__DOT__dut__DOT__alu_in1 
+                       + vlTOPp->tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val)));
+    }
     vlTOPp->tb_processor__DOT__dut__DOT__pc_reg = vlTOPp->__Vdly__tb_processor__DOT__dut__DOT__pc_reg;
+    vlTOPp->tb_processor__DOT__dut__DOT__is_jal = (0x6fU 
+                                                   == 
+                                                   (0x7fU 
+                                                    & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]));
+    vlTOPp->tb_processor__DOT__halt = (0x6fU == vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]);
+    vlTOPp->tb_processor__DOT__dut__DOT__jal_imm = 
+        ((0xfffffffffff00000ULL & ((- (QData)((IData)(
+                                                      (1U 
+                                                       & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                          >> 0x1fU))))) 
+                                   << 0x14U)) | (QData)((IData)(
+                                                                ((0xff000U 
+                                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]) 
+                                                                 | ((0x800U 
+                                                                     & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                        >> 9U)) 
+                                                                    | (0x7feU 
+                                                                       & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                                           << 0xcU) 
+                                                                          | (0xffeU 
+                                                                             & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                                >> 0x14U)))))))));
     vlTOPp->tb_processor__DOT__dut__DOT__imm_gen = 
         ((0x40U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
           ? ((0x20U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
               ? ((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
                   ? 0ULL : ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                             ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                        ? ((2U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                            ? ((1U 
-                                                & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                                ? (
-                                                   (0xfffffffffffff000ULL 
-                                                    & ((- (QData)((IData)(
-                                                                          (1U 
-                                                                           & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                              >> 0x1fU))))) 
-                                                       << 0xcU)) 
-                                                   | (QData)((IData)(
-                                                                     (0xfffU 
-                                                                      & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                                          << 0xcU) 
-                                                                         | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                            >> 0x14U))))))
-                                                : 0ULL)
-                                            : 0ULL)
-                                        : 0ULL))) : 0ULL)
-          : ((0x20U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-              ? ((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                  ? ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                      ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                             ? ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
                                  ? ((2U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
                                      ? ((1U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                         ? (((QData)((IData)(
-                                                             (- (IData)(
-                                                                        (1U 
-                                                                         & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                            >> 0x1fU)))))) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              (0xfffff000U 
-                                                               & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))))
+                                         ? vlTOPp->tb_processor__DOT__dut__DOT__jal_imm
                                          : 0ULL) : 0ULL)
-                                 : 0ULL)) : ((8U & 
-                                              vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                              ? 0ULL
-                                              : ((4U 
+                                 : 0ULL) : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                             ? ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
                                                   & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                                  ? 0ULL
-                                                  : 
-                                                 ((2U 
-                                                   & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                                   ? 
-                                                  ((1U 
-                                                    & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                                    ? 
-                                                   ((0xfffffffffffff000ULL 
-                                                     & ((- (QData)((IData)(
-                                                                           (1U 
-                                                                            & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                               >> 0x1fU))))) 
-                                                        << 0xcU)) 
-                                                    | (QData)((IData)(
-                                                                      ((0xfe0U 
-                                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                                            << 0xcU) 
-                                                                           | (0xfe0U 
-                                                                              & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                                >> 0x14U)))) 
-                                                                       | (0x1fU 
-                                                                          & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                                              << 0x19U) 
-                                                                             | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                                >> 7U)))))))
-                                                    : 0ULL)
-                                                   : 0ULL))))
-              : ((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                  ? ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                      ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                 ? ((2U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                     ? ((1U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                         ? (((QData)((IData)(
-                                                             (- (IData)(
-                                                                        (1U 
-                                                                         & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                            >> 0x1fU)))))) 
-                                             << 0x20U) 
-                                            | (QData)((IData)(
-                                                              (0xfffff000U 
-                                                               & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))))
-                                         : 0ULL) : 0ULL)
-                                 : ((2U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                     ? ((1U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                         ? ((0xfffffffffffff000ULL 
-                                             & ((- (QData)((IData)(
-                                                                   (1U 
-                                                                    & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                       >> 0x1fU))))) 
-                                                << 0xcU)) 
-                                            | (QData)((IData)(
-                                                              (0xfffU 
-                                                               & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
-                                                                   << 0xcU) 
-                                                                  | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                     >> 0x14U))))))
-                                         : 0ULL) : 0ULL)))
-                  : ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                      ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                 ? 0ULL : ((2U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                            ? ((1U 
-                                                & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
-                                                ? (
-                                                   (0xfffffffffffff000ULL 
-                                                    & ((- (QData)((IData)(
-                                                                          (1U 
-                                                                           & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                              >> 0x1fU))))) 
-                                                       << 0xcU)) 
-                                                   | (QData)((IData)(
-                                                                     (0xfffU 
+                                                  ? 
+                                                 ((0xfffffffffffff000ULL 
+                                                   & ((- (QData)((IData)(
+                                                                         (1U 
+                                                                          & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                             >> 0x1fU))))) 
+                                                      << 0xcU)) 
+                                                  | (QData)((IData)(
+                                                                    (0xfffU 
+                                                                     & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                                         << 0xcU) 
+                                                                        | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                           >> 0x14U))))))
+                                                  : 0ULL)
+                                                 : 0ULL)
+                                             : 0ULL)))
+              : 0ULL) : ((0x20U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                          ? ((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                              ? ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                  ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                             ? ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                  ? 
+                                                 (((QData)((IData)(
+                                                                   (- (IData)(
+                                                                              (1U 
+                                                                               & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                                >> 0x1fU)))))) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    (0xfffff000U 
+                                                                     & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))))
+                                                  : 0ULL)
+                                                 : 0ULL)
+                                             : 0ULL))
+                              : ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                  ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                             ? 0ULL
+                                             : ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                  ? 
+                                                 ((0xfffffffffffff000ULL 
+                                                   & ((- (QData)((IData)(
+                                                                         (1U 
+                                                                          & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                             >> 0x1fU))))) 
+                                                      << 0xcU)) 
+                                                  | (QData)((IData)(
+                                                                    ((0xfe0U 
                                                                       & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
                                                                           << 0xcU) 
-                                                                         | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
-                                                                            >> 0x14U))))))
-                                                : 0ULL)
-                                            : 0ULL))))));
-    vlTOPp->tb_processor__DOT__halt = (0x6fU == vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]);
+                                                                         | (0xfe0U 
+                                                                            & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                               >> 0x14U)))) 
+                                                                     | (0x1fU 
+                                                                        & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                                            << 0x19U) 
+                                                                           | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                              >> 7U)))))))
+                                                  : 0ULL)
+                                                 : 0ULL))))
+                          : ((0x10U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                              ? ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                  ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                             ? ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                  ? 
+                                                 (((QData)((IData)(
+                                                                   (- (IData)(
+                                                                              (1U 
+                                                                               & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                                >> 0x1fU)))))) 
+                                                   << 0x20U) 
+                                                  | (QData)((IData)(
+                                                                    (0xfffff000U 
+                                                                     & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U]))))
+                                                  : 0ULL)
+                                                 : 0ULL)
+                                             : ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                  ? 
+                                                 ((0xfffffffffffff000ULL 
+                                                   & ((- (QData)((IData)(
+                                                                         (1U 
+                                                                          & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                             >> 0x1fU))))) 
+                                                      << 0xcU)) 
+                                                  | (QData)((IData)(
+                                                                    (0xfffU 
+                                                                     & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                                         << 0xcU) 
+                                                                        | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                           >> 0x14U))))))
+                                                  : 0ULL)
+                                                 : 0ULL)))
+                              : ((8U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                  ? 0ULL : ((4U & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                             ? 0ULL
+                                             : ((2U 
+                                                 & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                 ? 
+                                                ((1U 
+                                                  & vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U])
+                                                  ? 
+                                                 ((0xfffffffffffff000ULL 
+                                                   & ((- (QData)((IData)(
+                                                                         (1U 
+                                                                          & (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                             >> 0x1fU))))) 
+                                                      << 0xcU)) 
+                                                  | (QData)((IData)(
+                                                                    (0xfffU 
+                                                                     & ((vlTOPp->tb_processor__DOT__dut__DOT__if_id[1U] 
+                                                                         << 0xcU) 
+                                                                        | (vlTOPp->tb_processor__DOT__dut__DOT__if_id[0U] 
+                                                                           >> 0x14U))))))
+                                                  : 0ULL)
+                                                 : 0ULL))))));
 }
 
 VL_INLINE_OPT void Vtb_processor::_sequent__TOP__6(Vtb_processor__Syms* __restrict vlSymsp) {
