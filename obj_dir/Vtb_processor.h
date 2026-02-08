@@ -33,7 +33,9 @@ VL_MODULE(Vtb_processor) {
     CData/*0:0*/ tb_processor__DOT__dut__DOT__is_jal;
     IData/*31:0*/ tb_processor__DOT__halt_counter;
     IData/*31:0*/ tb_processor__DOT__unnamedblk1__DOT__i;
+    IData/*31:0*/ tb_processor__DOT__dut__DOT__unnamedblk2__DOT__i;
     IData/*31:0*/ tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i;
+    IData/*31:0*/ tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i;
     WData/*95:0*/ tb_processor__DOT__dut__DOT__if_id[3];
     WData/*290:0*/ tb_processor__DOT__dut__DOT__id_ex[10];
     WData/*138:0*/ tb_processor__DOT__dut__DOT__ex_mem[5];
@@ -47,20 +49,21 @@ VL_MODULE(Vtb_processor) {
     QData/*63:0*/ tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val;
     QData/*63:0*/ tb_processor__DOT__dut__DOT__reg_file[32];
     CData/*7:0*/ tb_processor__DOT__imem__DOT__mem[16384];
-    QData/*63:0*/ tb_processor__DOT__dmem__DOT__mem[512];
+    QData/*63:0*/ tb_processor__DOT__dmem__DOT__mem[1024];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    CData/*0:0*/ __Vdlyvset__tb_processor__DOT__dmem__DOT__mem__v0;
     CData/*4:0*/ __Vdlyvdim0__tb_processor__DOT__dut__DOT__reg_file__v0;
     CData/*0:0*/ __Vdlyvset__tb_processor__DOT__dut__DOT__reg_file__v0;
-    CData/*0:0*/ __Vdlyvset__tb_processor__DOT__dmem__DOT__mem__v0;
+    CData/*0:0*/ __Vdlyvset__tb_processor__DOT__dut__DOT__reg_file__v1;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__rst_n;
-    SData/*8:0*/ __Vdlyvdim0__tb_processor__DOT__dmem__DOT__mem__v0;
-    QData/*63:0*/ __Vdlyvval__tb_processor__DOT__dut__DOT__reg_file__v0;
+    SData/*9:0*/ __Vdlyvdim0__tb_processor__DOT__dmem__DOT__mem__v0;
     QData/*63:0*/ __Vdlyvval__tb_processor__DOT__dmem__DOT__mem__v0;
     QData/*63:0*/ __Vdly__tb_processor__DOT__dut__DOT__pc_reg;
-    CData/*0:0*/ __Vm_traceActivity[3];
+    QData/*63:0*/ __Vdlyvval__tb_processor__DOT__dut__DOT__reg_file__v0;
+    CData/*0:0*/ __Vm_traceActivity[2];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code

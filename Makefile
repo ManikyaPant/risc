@@ -1,18 +1,14 @@
 VERILATOR = verilator
-# Added -Wno-WIDTH to be safe, though the code above fixes the main cause
 VFLAGS = --cc --exe --build -j 4 --trace --timescale 1ns/1ps -Wall \
          -Wno-UNUSED -Wno-UNDRIVEN -Wno-PINCONNECTEMPTY -Wno-SYNCASYNCNET \
          -Wno-CASEINCOMPLETE -Wno-WIDTH
 
 simulate: clean
-	# 1. Compile C and Assembly
 	riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -O2 -ffreestanding -nostdlib \
 		-static -Wl,-T,linker.ld startup.s test.c -o test.elf
 	
-	# 2. Convert to Hex - MUST BE WIDTH=1 for Byte-addressable RTL
 	riscv64-unknown-elf-objcopy -O verilog --verilog-data-width=1 test.elf program.hex
 	
-	# 3. Verilate and Run
 	$(VERILATOR) $(VFLAGS) riscv_processor.sv instruction_memory.sv data_memory.sv \
 		tb_processor.sv sim_main.cpp --top-module tb_processor
 	./obj_dir/Vtb_processor +IMEM_INIT

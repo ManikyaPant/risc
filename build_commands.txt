@@ -1,11 +1,24 @@
-# Step 1: Compile C code to RISC-V assembly
-riscv64-unknown-elf-gcc -S -march=rv64i -mabi=lp64 -O2 test.c -o test.s
+# RISC-V Build Commands
 
-# Step 2: Assemble to object file
-riscv64-unknown-elf-as -march=rv64i -mabi=lp64 test.s -o test.o
+# Compile C to ELF
+riscv64-unknown-elf-gcc -march=rv64i -mabi=lp64 -O2 -ffreestanding -nostdlib \
+    -static -Wl,-T,linker.ld startup.s test.c -o test.elf
 
-# Step 3: Link and create ELF
-riscv64-unknown-elf-ld -Ttext=0x0 test.o -o test.elf
-
-# Step 4: Extract machine code for simulation
+# Convert ELF to hex
 riscv64-unknown-elf-objcopy -O verilog --verilog-data-width=1 test.elf program.hex
+
+# Verilator simulation
+verilator --cc --exe --build -j 4 --trace --timescale 1ns/1ps -Wall \
+    -Wno-UNUSED -Wno-UNDRIVEN -Wno-PINCONNECTEMPTY -Wno-SYNCASYNCNET \
+    -Wno-CASEINCOMPLETE -Wno-WIDTH \
+    riscv_processor.sv instruction_memory.sv data_memory.sv \
+    tb_processor.sv sim_main.cpp --top-module tb_processor
+
+# Run simulation
+./obj_dir/Vtb_processor +IMEM_INIT
+
+# View waveforms
+gtkwave processor.vcd
+
+# Disassembly (for debugging)
+riscv64-unknown-elf-objdump -d test.elf > test.disasm

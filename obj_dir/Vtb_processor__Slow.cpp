@@ -32,9 +32,16 @@ void Vtb_processor::_initial__TOP__3(Vtb_processor__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtb_processor::_initial__TOP__3\n"); );
     Vtb_processor* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    WData/*95:0*/ __Vtemp3[3];
+    WData/*95:0*/ __Vtemp4[3];
     // Body
     vlTOPp->tb_processor__DOT__halt_counter = 0U;
+    vlTOPp->tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i = 0U;
+    while (VL_GTS_III(1,32,32, 0x400U, vlTOPp->tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i)) {
+        vlTOPp->tb_processor__DOT__dmem__DOT__mem[(0x3ffU 
+                                                   & vlTOPp->tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i)] = 0ULL;
+        vlTOPp->tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i 
+            = ((IData)(1U) + vlTOPp->tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i);
+    }
     vlTOPp->tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i = 0U;
     while (VL_GTS_III(1,32,32, 0x4000U, vlTOPp->tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i)) {
         vlTOPp->tb_processor__DOT__imem__DOT__mem[(0x3fffU 
@@ -43,11 +50,11 @@ void Vtb_processor::_initial__TOP__3(Vtb_processor__Syms* __restrict vlSymsp) {
             = ((IData)(1U) + vlTOPp->tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i);
     }
     if (VL_UNLIKELY((0U != VL_TESTPLUSARGS_I("IMEM_INIT")))) {
-        VL_WRITEF("Loading program.hex (Byte-Addressable)...\n");
-        __Vtemp3[0U] = 0x2e686578U;
-        __Vtemp3[1U] = 0x6772616dU;
-        __Vtemp3[2U] = 0x70726fU;
-        VL_READMEM_N(true, 8, 16384, 0, VL_CVT_PACK_STR_NW(3, __Vtemp3)
+        VL_WRITEF("Loading program.hex...\n");
+        __Vtemp4[0U] = 0x2e686578U;
+        __Vtemp4[1U] = 0x6772616dU;
+        __Vtemp4[2U] = 0x70726fU;
+        VL_READMEM_N(true, 8, 16384, 0, VL_CVT_PACK_STR_NW(3, __Vtemp4)
                      , vlTOPp->tb_processor__DOT__imem__DOT__mem
                      , 0, ~0ULL);
     }
@@ -376,7 +383,6 @@ void Vtb_processor::_eval_initial(Vtb_processor__Syms* __restrict vlSymsp) {
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
     vlTOPp->__Vclklast__TOP__rst_n = vlTOPp->rst_n;
     vlTOPp->_initial__TOP__3(vlSymsp);
-    vlTOPp->__Vm_traceActivity[2U] = 1U;
     vlTOPp->__Vm_traceActivity[1U] = 1U;
     vlTOPp->__Vm_traceActivity[0U] = 1U;
 }
@@ -393,7 +399,6 @@ void Vtb_processor::_eval_settle(Vtb_processor__Syms* __restrict vlSymsp) {
     Vtb_processor* const __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_settle__TOP__4(vlSymsp);
-    vlTOPp->__Vm_traceActivity[2U] = 1U;
     vlTOPp->__Vm_traceActivity[1U] = 1U;
     vlTOPp->__Vm_traceActivity[0U] = 1U;
 }
@@ -421,21 +426,24 @@ void Vtb_processor::_ctor_var_reset() {
     tb_processor__DOT__dut__DOT__alu_in2 = VL_RAND_RESET_Q(64);
     tb_processor__DOT__dut__DOT__alu_out = VL_RAND_RESET_Q(64);
     tb_processor__DOT__dut__DOT__unnamedblk1__DOT__op2_val = VL_RAND_RESET_Q(64);
+    tb_processor__DOT__dut__DOT__unnamedblk2__DOT__i = 0;
     { int __Vi0=0; for (; __Vi0<16384; ++__Vi0) {
             tb_processor__DOT__imem__DOT__mem[__Vi0] = VL_RAND_RESET_I(8);
     }}
     tb_processor__DOT__imem__DOT__unnamedblk1__DOT__i = 0;
-    { int __Vi0=0; for (; __Vi0<512; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<1024; ++__Vi0) {
             tb_processor__DOT__dmem__DOT__mem[__Vi0] = VL_RAND_RESET_Q(64);
     }}
-    __Vdlyvdim0__tb_processor__DOT__dut__DOT__reg_file__v0 = 0;
-    __Vdlyvval__tb_processor__DOT__dut__DOT__reg_file__v0 = VL_RAND_RESET_Q(64);
-    __Vdlyvset__tb_processor__DOT__dut__DOT__reg_file__v0 = 0;
+    tb_processor__DOT__dmem__DOT__unnamedblk1__DOT__i = 0;
     __Vdlyvdim0__tb_processor__DOT__dmem__DOT__mem__v0 = 0;
     __Vdlyvval__tb_processor__DOT__dmem__DOT__mem__v0 = VL_RAND_RESET_Q(64);
     __Vdlyvset__tb_processor__DOT__dmem__DOT__mem__v0 = 0;
     __Vdly__tb_processor__DOT__dut__DOT__pc_reg = VL_RAND_RESET_Q(64);
-    { int __Vi0=0; for (; __Vi0<3; ++__Vi0) {
+    __Vdlyvdim0__tb_processor__DOT__dut__DOT__reg_file__v0 = 0;
+    __Vdlyvval__tb_processor__DOT__dut__DOT__reg_file__v0 = VL_RAND_RESET_Q(64);
+    __Vdlyvset__tb_processor__DOT__dut__DOT__reg_file__v0 = 0;
+    __Vdlyvset__tb_processor__DOT__dut__DOT__reg_file__v1 = 0;
+    { int __Vi0=0; for (; __Vi0<2; ++__Vi0) {
             __Vm_traceActivity[__Vi0] = VL_RAND_RESET_I(1);
     }}
 }
